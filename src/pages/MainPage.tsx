@@ -1,13 +1,21 @@
+import { useState } from "react";
+import UserInputForm from "../features/user-input/components/UserInputForm";
+
 export default function MainPage() {
+  const [receipt, setReceipt] = useState("");
+
+  function handleSubmittedText(text: string) {
+    const characters = Array.from(text).length;
+    const lines = text === "" ? 0 : text.split("\n").length;
+    setReceipt("최근 FE 입력 처리부 전달: " + characters + "자 · " + lines + "줄");
+  }
+
   return (
     <main className="page">
-      <p className="eyebrow">CAPSTONE DESIGN · USER INPUT POC</p>
+      <p className="eyebrow">User Input PoC</p>
       <h1>AI Agent Orchestration</h1>
-      <p className="status">User Input PoC — Development Environment Ready</p>
-      <p className="description">
-        React와 Rust Core 개발을 위한 초기 환경 확인 화면입니다.
-        사용자 입력 및 Core 통신 기능은 API 명세 협의 후 구현합니다.
-      </p>
+      <UserInputForm onSubmitText={handleSubmittedText} />
+      <p className="receipt" role="status">{receipt}</p>
     </main>
   );
 }
