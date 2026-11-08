@@ -21,6 +21,12 @@ tauri-build = { version = "2", features = [] }
 tauri = { version = "=2.12.3", features = [] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+regex = "1"
+unicode-properties = { version = "=0.1.4", default-features = false, features = ["general-category"] }
+unicode-segmentation = "=1.13.3"
+
+[dev-dependencies]
+tauri = { version = "=2.12.3", features = ["test"] }
 
 
 # Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
