@@ -22,7 +22,7 @@ function setupForm() {
 describe("I-000 메인 페이지 입력창 표시", () => {
   it("TC-I-000-01 메인 화면에 여러 줄 입력 영역이 표시된다", () => {
     render(<App />);
-    expect(screen.getByRole("heading", { name: "AI Agent Orchestration" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "무엇을 도와드릴까요?" })).toBeVisible();
     expect(screen.getByLabelText("업무 요청")).toBeInstanceOf(HTMLTextAreaElement);
     expect(screen.getByLabelText("업무 요청")).toBeVisible();
   });
@@ -35,6 +35,8 @@ describe("I-000 메인 페이지 입력창 표시", () => {
   it("TC-I-000-03 Tab으로 입력창에 포커스한다", async () => {
     const user = userEvent.setup();
     render(<App />);
+    await user.tab();
+    expect(screen.getByRole("button", { name: /다크 모드로 전환/ })).toHaveFocus();
     await user.tab();
     expect(textbox()).toHaveFocus();
   });

@@ -1,3 +1,4 @@
+import { WorkspaceIcon } from "../layouts/WorkspaceIcon";
 import { useState } from "react";
 import UserInputForm from "../features/user-input/components/UserInputForm";
 
@@ -12,10 +13,15 @@ export default function MainPage() {
 
   return (
     <main className="page">
-      <p className="eyebrow">User Input PoC</p>
-      <h1>AI Agent Orchestration</h1>
-      <UserInputForm onSubmitText={handleSubmittedText} />
-      <p className="receipt" role="status">{receipt}</p>
+      <div className="welcome">
+        <div className="constellation" aria-hidden="true"><span><WorkspaceIcon name="workspace" /></span></div>
+        <h1>무엇을 도와드릴까요?</h1>
+        <p>자연어로 요청을 입력하세요.</p>
+      </div>
+      <div className="composer">
+        <UserInputForm onSubmitText={handleSubmittedText} />
+        <p className="receipt" role="status">{receipt}</p>
+      </div>
     </main>
   );
 }
