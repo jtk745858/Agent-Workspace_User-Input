@@ -36,6 +36,15 @@ macOS / Linux 실행은 이 PC에서 검증하지 않았습니다. 시스템 도
 
 ## 이 PC에서 실행
 
+개발 기준은 Node.js 22.23.4와 pnpm 10.34.9입니다. 지원 범위는 Node.js 22.22.2 이상, 23 미만입니다. 현재 잠금 파일의 jsdom 31.0.0은 Node 22 계열에서 22.22.2 이상을 요구합니다. nvm-windows에서는 프로젝트에 진입하는 것만으로 .nvmrc가 자동 적용되지 않을 수 있으므로 node --version으로 확인합니다.
+
+이 PC에서 프로젝트 폴더를 VS Code로 열고 새 PowerShell 터미널을 만들면 프로젝트 전용 로컬 설정이 .tools의 Node와 pnpm을 우선합니다. 기존 터미널 또는 일반 PowerShell에서는 프로젝트 루트에서 다음 명령으로 같은 환경의 하위 PowerShell을 열 수 있습니다. exit로 원래 셸에 돌아갑니다.
+
+    .\scripts\dev-env.cmd powershell -NoProfile
+    node --version
+    pnpm test
+    pnpm build
+
 프로젝트 루트에서 다음 명령을 실행합니다. 별도의 PowerShell 실행 정책 변경은 필요하지 않습니다.
 
     .\scripts\dev-env.cmd node --version
