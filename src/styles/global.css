@@ -1,0 +1,84 @@
+:root {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #e8edf5;
+  background: #111827;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: clamp(40px, 10vh, 88px) clamp(20px, 6vw, 48px);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #93c5fd;
+  font-size: 0.875rem;
+}
+
+h1 {
+  margin: 0 0 36px;
+  font-size: clamp(1.8rem, 5vw, 2.75rem);
+  line-height: 1.15;
+}
+
+.input-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.input-form label { font-weight: 600; }
+
+.input-form textarea {
+  width: 100%;
+  min-height: 9rem;
+  resize: vertical;
+  padding: 16px;
+  border: 1px solid #75839a;
+  border-radius: 8px;
+  background: #182232;
+  color: inherit;
+  font: inherit;
+  line-height: 1.6;
+}
+
+.input-form textarea::placeholder { color: #a8b4c6; }
+
+.input-form button {
+  justify-self: end;
+  padding: 10px 24px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  background: #93c5fd;
+  color: #10243d;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.input-form button:disabled {
+  outline: 1px dashed #8291a6;
+  outline-offset: -1px;
+  background: #263244;
+  color: #bac5d6;
+  cursor: not-allowed;
+}
+
+.input-form button:enabled:hover { background: #b6d9ff; }
+.input-form :focus-visible { outline: 3px solid #bfdbfe; outline-offset: 3px; }
+.receipt { margin: 16px 0 0; color: #a7f3d0; font-size: 0.9rem; }
+
+@media (max-height: 480px) {
+  .page { padding-block: 12px; }
+  h1 { margin-bottom: 12px; }
+  .input-form { gap: 8px; }
+  .input-form textarea { height: 26vh; min-height: 4rem; padding-block: 8px; }
+}
+
+@media (max-width: 480px) {
+  .page { padding-inline: 12px; overflow-wrap: anywhere; }
+}
