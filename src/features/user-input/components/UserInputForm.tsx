@@ -1,10 +1,11 @@
 import { useUserInput } from "../hooks/useUserInput";
 
 type UserInputFormProps = {
+  sending?: boolean;
   onSubmitText: (text: string) => void;
 };
 
-export default function UserInputForm({ onSubmitText }: UserInputFormProps) {
+export default function UserInputForm({ onSubmitText, sending = false }: UserInputFormProps) {
   const { value, setValue, isValid, handleSubmit } = useUserInput(onSubmitText);
 
   return (
@@ -17,7 +18,7 @@ export default function UserInputForm({ onSubmitText }: UserInputFormProps) {
         value={value}
         onChange={(event) => setValue(event.currentTarget.value)}
       />
-      <button type="submit" disabled={!isValid}>전송</button>
+      <button type="submit" disabled={sending || !isValid}>전송</button>
     </form>
   );
 }
