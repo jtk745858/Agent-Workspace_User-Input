@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useUserInput } from "../hooks/useUserInput";
 
 type UserInputFormProps = {
@@ -8,12 +9,20 @@ type UserInputFormProps = {
 export default function UserInputForm({ onSubmitText, sending = false }: UserInputFormProps) {
   const { value, setValue, isValid, validationMessage, handleSubmit } = useUserInput(onSubmitText);
 
+  const input = useRef<HTMLTextAreaElement>(null);
   const showInvalid = value.length > 0 && !isValid;
 
   return (
-    <form className="input-form" onSubmit={handleSubmit}>
+    <form className="input-form" onSubmit={event => {
+      handleSubmit(event);
+      if (isValid && !sending) {
+        input.current?.focus();
+        input.current?.select();
+      }
+    }}>
       <label htmlFor="user-input">업무 요청</label>
       <textarea
+        ref={input}
         id="user-input"
         aria-invalid={showInvalid}
         aria-describedby={showInvalid ? "input-guidance" : undefined}

@@ -9,6 +9,8 @@ export type TransmissionState =
   | { status: "error"; request: UserInputRequest; code: "IPC_ERROR" }
   | { status: "unconfirmed"; request: UserInputRequest; code: "RESPONSE_UNCONFIRMED" };
 
+type FinishedTransmission = Exclude<TransmissionState, { status: "idle" | "sending" }>;
+
 const waitMs = 10_000;
 
 export function useTransmission() {
@@ -20,7 +22,7 @@ export function useTransmission() {
     active.current = null;
   }, []);
 
-  async function send(request: UserInputRequest) {
+  async function send(request: UserInputRequest, onFinish?: (result: FinishedTransmission) => void) {
     if (active.current) return;
     setState({ status: "sending", request });
     const deadline = performance.now() + waitMs;
@@ -28,11 +30,13 @@ export function useTransmission() {
     const pending = { timer: setTimeout(() => finish(timeout), waitMs) };
     active.current = pending;
 
-    function finish(result: TransmissionState) {
+    function finish(result: FinishedTransmission) {
       if (active.current !== pending) return;
       clearTimeout(pending.timer);
       active.current = null;
-      setState(performance.now() >= deadline ? timeout : result);
+      const terminal = performance.now() >= deadline ? timeout : result;
+      setState(terminal);
+      onFinish?.(terminal);
     }
 
     try {

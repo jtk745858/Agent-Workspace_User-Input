@@ -35,9 +35,9 @@ button:disabled { cursor: not-allowed; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
 .workspace {
-  min-height: 100dvh;
+  height: 100dvh;
   display: grid;
-  grid-template: auto 1fr / clamp(160px, 17vw, 236px) minmax(0, 1fr);
+  grid-template: auto minmax(0, 1fr) / clamp(160px, 17vw, 236px) minmax(0, 1fr);
 }
 .app-header {
   grid-column: 1 / -1;
@@ -67,7 +67,7 @@ button:disabled { cursor: not-allowed; }
 .current { background: var(--tint); color: var(--accent); font-weight: 650; }
 .stage { padding: 16px 10px 0; border-top: 1px solid var(--border); }
 .page {
-  min-width: 0; display: flex; flex-direction: column; align-items: center;
+  min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center;
   padding: clamp(20px, 4vw, 64px); gap: 24px;
 }
 .welcome { flex: 1; display: grid; align-content: center; justify-items: center; text-align: center; padding-block: 18px; }
@@ -90,23 +90,33 @@ h1 { font-size: clamp(1.65rem, 3vw, 2.6rem); letter-spacing: -.055em; line-heigh
 }
 .input-form label { font-size: 13px; font-weight: 650; }
 .input-form textarea {
-  display: block; width: 100%; min-height: 3rem; height: 5rem; resize: vertical;
+  display: block; width: 100%; min-height: 3rem; height: 5rem; max-height: 24dvh; resize: vertical;
   border: 0; background: transparent; padding: 4px 2px; line-height: 1.55;
 }
 textarea::placeholder { color: var(--muted); }
 .input-form button { justify-self: end; min-height: 36px; padding: 6px 18px; border: 1px solid transparent; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-weight: 600; }
 .input-form button:disabled { background: var(--hover); border: 1px dashed var(--border); color: var(--muted); }
-.submission-result { min-width: 0; margin-top: 12px; overflow-wrap: anywhere; }
-.submission-result h2 { font-size: 14px; }
-.submitted-text { white-space: break-spaces; }
-.receipt, #input-guidance { color: var(--muted); font-size: 13px; }
-.receipt:not(:empty) { margin-top: 8px; padding-inline-start: 10px; border-inline-start: 3px dotted; }
-.receipt[data-kind="received"] { color: var(--accent); border-inline-start-style: solid; }
-.receipt[data-kind="rejected"] { color: var(--text); border-inline-start-style: dashed; }
-.receipt[data-kind="error"] { color: var(--text); border-inline-start: 5px double; }
-.receipt[data-kind="unconfirmed"] { border-inline-start-style: dashed; }
+.conversation {
+  flex: 1; width: min(100%, 800px); min-height: 0; overflow-y: auto;
+  scrollbar-gutter: stable both-edges; overscroll-behavior: contain;
+}
+.conversation ol { list-style: none; padding: 6px 0 14px; margin: 0; }
+.chat-turn { display: grid; gap: 12px; }
+.chat-turn + .chat-turn { margin-top: 28px; }
+.chat-user, .chat-core { display: grid; gap: 5px; max-width: min(85%, 62ch); min-width: 0; }
+.chat-user { justify-self: end; justify-items: end; }
+.chat-core { justify-self: start; }
+.speaker, .chat-core small, #input-guidance { color: var(--muted); font-size: 12px; }
+.speaker { font-weight: 650; }
+.bubble { padding: 11px 16px; overflow-wrap: anywhere; line-height: 1.6; }
+.chat-user .bubble { white-space: break-spaces; background: #193c79; color: white; border-radius: 18px 5px 18px 18px; }
+.chat-core .bubble { background: var(--surface); border: 1px solid var(--border); border-radius: 5px 18px 18px; }
+.chat-core small { display: block; margin-top: 4px; }
+.chat-core [data-kind="sending"], .chat-core [data-kind="unconfirmed"] { border-style: dashed; }
+.chat-core [data-kind="received"] { border-inline-start: 3px solid var(--accent); }
+.chat-core [data-kind="error"], .chat-core [data-kind="rejected"] { border-inline-start: 4px double var(--muted); }
 @media (max-width: 650px) {
-  .workspace { grid-template: auto auto 1fr / minmax(0, 1fr); }
+  .workspace { grid-template: auto auto minmax(0, 1fr) / minmax(0, 1fr); }
   .sidebar { padding: 5px 10px; border: 0; border-bottom: 1px solid var(--border); }
   .sidebar ul { display: flex; flex-wrap: wrap; }
   .nav-label, .stage { display: none; }
