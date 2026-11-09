@@ -96,8 +96,15 @@ h1 { font-size: clamp(1.65rem, 3vw, 2.6rem); letter-spacing: -.055em; line-heigh
 textarea::placeholder { color: var(--muted); }
 .input-form button { justify-self: end; min-height: 36px; padding: 6px 18px; border: 1px solid transparent; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-weight: 600; }
 .input-form button:disabled { background: var(--hover); border: 1px dashed var(--border); color: var(--muted); }
-.receipt { color: var(--muted); font-size: 13px; }
-.receipt:not(:empty) { margin-top: 8px; }
+.submission-result { min-width: 0; margin-top: 12px; overflow-wrap: anywhere; }
+.submission-result h2 { font-size: 14px; }
+.submitted-text { white-space: break-spaces; }
+.receipt, #input-guidance { color: var(--muted); font-size: 13px; }
+.receipt:not(:empty) { margin-top: 8px; padding-inline-start: 10px; border-inline-start: 3px dotted; }
+.receipt[data-kind="received"] { color: var(--accent); border-inline-start-style: solid; }
+.receipt[data-kind="rejected"] { color: var(--text); border-inline-start-style: dashed; }
+.receipt[data-kind="error"] { color: var(--text); border-inline-start: 5px double; }
+.receipt[data-kind="unconfirmed"] { border-inline-start-style: dashed; }
 @media (max-width: 650px) {
   .workspace { grid-template: auto auto 1fr / minmax(0, 1fr); }
   .sidebar { padding: 5px 10px; border: 0; border-bottom: 1px solid var(--border); }

@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from "react";
 
-import { isValidUserInput } from "../isValidUserInput";
+import { inputValidationMessage } from "../isValidUserInput";
 
 export function useUserInput(onSubmitText: (text: string) => void) {
   const [value, setValue] = useState("");
-  const isValid = isValidUserInput(value);
+  const validationMessage = inputValidationMessage(value);
+  const isValid = validationMessage === undefined;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -12,5 +13,5 @@ export function useUserInput(onSubmitText: (text: string) => void) {
     onSubmitText(value);
   }
 
-  return { value, setValue, isValid, handleSubmit };
+  return { value, setValue, isValid, validationMessage, handleSubmit };
 }
