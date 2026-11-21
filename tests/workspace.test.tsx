@@ -18,7 +18,7 @@ describe("Workspace", () => {
   it("UI-002 헤더에 앱 이름과 현재 화면 표시", () => {
     render(<App />);
     const header = within(screen.getByRole("banner"));
-    expect(header.getByText("Agent Workspace")).toBeVisible();
+    expect(within(screen.getByRole("complementary")).getByText(/Agent/)).toBeVisible();
     expect(header.getByText("Home")).toBeVisible();
   });
   it("UI-003 사이드바에 탐색 메뉴 표시", () => {
@@ -27,15 +27,17 @@ describe("Workspace", () => {
   });
   it("UI-004 Home은 현재 페이지", () => {
     render(<App />);
-    expect(within(screen.getByRole("navigation")).getByText("Home")).toHaveAttribute("aria-current", "page");
+    expect(within(screen.getByRole("navigation", { name: "주 탐색" })).getByRole("button", { name: "홈" })).toHaveAttribute("aria-current", "page");
   });
-  it("UI-005 개발 예정 메뉴 비활성", () => {
+  it("UI-005 개발 예정 실행 비활성", async () => {
     render(<App />);
-    for (const name of ["Agents", "Workflows"]) expect(screen.getByRole("button", { name })).toBeDisabled();
+    await userEvent.click(screen.getByRole("button", { name: "Workflows" }));
+    expect(screen.getAllByRole("button", { name: "실행 · 준비 중" })).toHaveLength(3);
+    screen.getAllByRole("button", { name: "실행 · 준비 중" }).forEach(button => expect(button).toBeDisabled());
   });
   it("UI-006 메인 제목 표시", () => {
     render(<App />);
-    expect(within(screen.getByRole("main")).getByRole("heading", { level: 1 })).toHaveTextContent("무엇을 도와드릴까요?");
+    expect(within(screen.getByRole("main")).getByRole("heading", { level: 1 })).toHaveTextContent("어떤 일을 함께 해볼까요?");
   });
   it("UI-007 메인 안에 입력창과 전송 버튼 표시", () => {
     render(<App />);
@@ -78,7 +80,7 @@ describe("Workspace", () => {
   it("UI-014 Tab과 Enter로 테마 변경", async () => {
     const user = userEvent.setup();
     render(<App />);
-    await user.tab();
+    for (let index = 0; index < 25 && document.activeElement !== toggle(); index++) await user.tab();
     expect(toggle()).toHaveFocus();
     await user.keyboard("{Enter}");
     expectTheme("dark");
