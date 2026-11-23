@@ -1,0 +1,28 @@
+.markdown-content { min-width: 0; max-width: 100%; overflow-wrap: anywhere; white-space: normal; color: var(--text); line-height: 1.7; }
+.markdown-content > :first-child { margin-top: 0; }
+.markdown-content > :last-child { margin-bottom: 0; }
+.markdown-content :is(h1,h2,h3,h4,h5,h6) { margin: 1.4em 0 .6em; line-height: 1.35; letter-spacing: normal; }
+.markdown-content h1 { font-size: 1.9em; }
+.markdown-content h2 { font-size: 1.55em; }
+.markdown-content h3 { font-size: 1.3em; }
+.markdown-content h4 { font-size: 1.15em; }
+.markdown-content :is(h5,h6) { font-size: 1em; }
+.markdown-content p { margin: .8em 0; color: inherit; }
+.markdown-content :is(ul,ol) { padding-inline-start: 1.6em; margin: .8em 0; }
+.markdown-content li + li { margin-top: .3em; }
+.markdown-content li > :is(ul,ol) { margin-block: .3em; }
+.markdown-content blockquote { margin: 1em 0; padding: .2em 1em; border-inline-start: 4px solid var(--accent); background: var(--hover); color: var(--muted); }
+.markdown-content a { color: var(--text); text-decoration: underline; text-decoration-color: var(--focus); text-underline-offset: 3px; }
+.markdown-content a:hover { text-decoration-thickness: 2px; }
+.markdown-content code { font-family: Consolas, "Courier New", monospace; font-size: .9em; background: var(--hover); border-radius: 4px; padding: .15em .3em; }
+.markdown-content pre { max-width: 100%; min-width: 0; overflow-x: auto; white-space: pre; overflow-wrap: normal; word-break: normal; margin: 1em 0; padding: 16px; background: var(--hover); border: 1px solid var(--border); border-radius: 9px; }
+.markdown-content pre code { padding: 0; font-size: 13px; background: transparent; white-space: inherit; }
+.markdown-content hr { border: 0; border-top: 1px solid var(--border); margin: 1.5em 0; }
+.markdown-table-scroll { max-width: 100%; min-width: 0; overflow-x: auto; margin: 1em 0; }
+.markdown-content table { border-collapse: collapse; width: 100%; font-size: .9em; }
+.markdown-content :is(th,td) { min-width: 8rem; padding: 10px 12px; border: 1px solid var(--border); white-space: normal; overflow-wrap: anywhere; }
+.markdown-content th { font-size: inherit; font-weight: 650; color: var(--text); background: var(--tint); }
+.markdown-content tr:nth-child(even) { background: var(--hover); }
+.markdown-content .contains-task-list { list-style: none; }
+.markdown-content .task-list-item input { margin-inline: -1.3em .5em; }
+.markdown-image { color: var(--muted); font-size: .9em; }

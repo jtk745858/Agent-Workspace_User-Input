@@ -1,3 +1,4 @@
+import MarkdownContent from "../components/markdown/MarkdownContent";
 import { useState } from "react";
 import { WorkspaceIcon } from "../layouts/WorkspaceIcon";
 import { artifacts, runs, workflows, type WorkspaceRoute } from "./workspaceDemo";
@@ -81,7 +82,7 @@ function ArtifactDetail({ index, navigate }: { index: number } & Pick<Props, "na
     <div className="pagehead"><div><h1>{file.name}</h1><p>{workflows[runs[file.run].workflow].name} · {file.format}</p></div>
       <button onClick={() => navigate({ page: "run", run: file.run })}>실행 상세</button></div><DemoNotice />
     <article className="document"><span className="eyebrow">WORKSPACE REPORT</span><h2>예시 결과물</h2>
-      <p>UI 검토용 합성 데이터 · {file.format} 원문 미리보기</p><pre>{file.content}</pre></article>
+      <p>UI 검토용 합성 데이터 · {file.format} 미리보기</p>{file.format === "Markdown" ? <MarkdownContent content={file.content} /> : <pre className="artifact-raw" tabIndex={0} aria-label="결과물 원문">{file.content}</pre>}</article>
   </>;
 }
 function Review({ index, navigate }: { index: number } & Pick<Props, "navigate">) {
